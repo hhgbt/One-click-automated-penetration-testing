@@ -1,4 +1,3 @@
-# One-click-automated-penetration-testing
 # 一键式自动化渗透测试
 
 ## 一、项目概述
@@ -6,9 +5,7 @@
 本项目以 “用户输入任意 URL” 为触发点，摒弃数据库依赖，通过**工具集成自动化、JSON 文件全程存储、轻量化报告生成**，实现 “信息收集→漏洞检测→漏洞渗透→报告导出” 的全流程闭环。所有测试数据（任务信息、工具输出、漏洞详情、渗透结果）均以 JSON 格式存储在本地文件，适配各类 Web 靶场 / 测试目标，部署简单、数据可追溯，适合快速验证与学习使用。
 
 
-
-<img src="C:\Users\29028\Desktop\微信图片_20251112163236_182_379.png" style="zoom:200%;" />
-
+<img width="2269" height="3585" alt="215712734a84cd3c011b8be9c9cbd17f" src="https://github.com/user-attachments/assets/2a85fd71-6d8a-4ec3-8674-eed810a0416a" />
 
 
 ## 二、核心流程实现
@@ -17,16 +14,15 @@
 
 **1. 功能目标**
 
-- 接收用户输入的 URL（如 **http://192.168.1.100/test**），验证格式合法性与目标可达性
-
+- 接收用户输入的 URL（如 http://192.168.1.100/test ），验证格式合法性与目标可达性
 - 提取 URL 核心信息（IP / 域名、端口、路径），生成唯一任务 ID，初始化任务 JSON 文件
 
 **2. 技术实现**
 
 - **格式验证**：使用正则表达式 **/^https?:\/\/.+/** 校验 URL，前端（Vue.js+Element UI）实时提示格式错误（如 “请输入 http:// 或 https:// 开头的有效 URL”）
-- **URL** **解析**：通过  **Pythonurllib.parse** 库拆解 URL
+- **URL 解析**：通过  **Pythonurllib.parse** 库拆解 URL
 - **可达性检测**：通过 **requests** 库发送 HEAD 请求，超时时间设为 5 秒，返回 200/301/302 则判定可达
--  **JSON** **初始化**：生成唯一任务 ID（如 **task_20251101_123456**），创建任务根 JSON 文件（**task_20251101_123456.json**），存储基础信息：
+- **JSON** **初始化**：生成唯一任务 ID（如 **task_20251101_123456**），创建任务根 JSON 文件（**task_20251101_123456.json**），存储基础信息：
 
   `{`  
 
@@ -124,7 +120,7 @@
 - **系统 /** **中间件漏洞扫描（OpenVAS**）：
   - 触发条件：信息收集发现非 Web 端口（如 22 SSH、3306 MySQL）或 Web 服务版本存在已知漏洞
   - 调用命令： `openvas-cli  scan --target {target_ip} --policy Full\ and\ fast --output openvas.log`  
-  -  结果解析：提取漏洞名称、影响版本、修复建议，存入 JSON 的 **system_vulnerabilities** 字段
+  - 结果解析：提取漏洞名称、影响版本、修复建议，存入 JSON 的 **system_vulnerabilities** 字段
 
 **3. 漏洞排序规则**
 
@@ -201,7 +197,7 @@
   - PDF：通过 **Python-Markdown** 将 Markdown 转为 HTML，再用 **WeasyPrint** 转为 PDF
   - Word：通过 **python-docx** 库逐章节写入数据，插入表格与日志片段
 
-- **JSON更新：**报告生成后，在任务 JSON 中记录报告路径：
+- **JSON更新：** 报告生成后，在任务 JSON 中记录报告路径：
 
 `"report_path":{`
 
@@ -217,7 +213,6 @@
 
 - 本地生成多格式报告文件
 - 前端展示 “报告生成完成”，提供下载链接（映射到本地报告路径）
-
 
 
 ## 三、环境配置与部署
